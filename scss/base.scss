@@ -1,0 +1,9 @@
+@use './abstracts/colors'; 
+@use "./abstracts/fonts";
+
+body {
+    min-height: 100vh;
+    background: colors.$backgroundColor;
+    background: linear-gradient(349deg, colors.$backgroundColor 13%, colors.$backgroundColor2 91%);
+    font-family: fonts.$font;
+}

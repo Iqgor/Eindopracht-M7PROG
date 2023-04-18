@@ -1,0 +1,31 @@
+@use '../../abstracts/colors';
+
+.header{
+    width: 100%;
+    display: flex ;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    padding-top: 4rem;
+
+    &__figure{
+        font-size: 250%;
+        background: colors.$boxColor;
+        width: 7.5rem;
+        height: 7.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: 0.8s all;
+
+        &:hover{
+            transform: rotate(360deg);
+            
+        }
+    }
+
+    &__title{
+        font-size: 250%;
+    }
+}
