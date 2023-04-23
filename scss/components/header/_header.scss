@@ -4,7 +4,7 @@
     width: 100%;
     display: flex ;
     align-items: center;
-    justify-content: center;
+    padding-left: 4rem;
     gap: 4rem;
     padding-top: 4rem;
 
@@ -18,7 +18,8 @@
         justify-content: center;
         border-radius: 50%;
         transition: 0.8s all;
-
+        
+        
         &:hover{
             transform: rotate(360deg);
             

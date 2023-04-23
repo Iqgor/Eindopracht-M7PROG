@@ -23,13 +23,13 @@ body {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding-left: 4rem;
   gap: 4rem;
   padding-top: 4rem;
 }
 .header__figure {
   font-size: 250%;
-  background: #FFFFFF;
+  background: #ffffff;
   width: 7.5rem;
   height: 7.5rem;
   display: flex;
@@ -43,6 +43,195 @@ body {
 }
 .header__title {
   font-size: 250%;
+}
+
+.footer {
+  text-align: center;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  height: 68rem;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 4rem;
+  border-radius: 0.25rem;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  padding: 2rem;
+}
+.main__afleveringen {
+  width: 50%;
+  height: 100%;
+  gap: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+}
+.main__aflevering {
+  width: 48%;
+  height: 48%;
+  background: white;
+  border-radius: 0.25rem;
+  position: relative;
+  transition: 0.2s;
+}
+.main__aflevering--figure {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  filter: blur(0.15rem);
+  transition: 0.2s;
+}
+.main__aflevering--figure:hover {
+  filter: blur(0);
+}
+.main__aflevering--img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.main__aflevering--datum {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+.main__aflevering--title {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  font-size: 150%;
+}
+.main__aflevering:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.info {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 4rem;
+}
+.info__box {
+  height: 100%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.info__figure {
+  width: 100%;
+  position: relative;
+  height: 40%;
+}
+.info__figure--img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+.info__figure--datum {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+.info__figure--title {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  font-size: 150%;
+}
+.info__links {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.info__links--buttons {
+  font-family: "Ubuntu", sans-serif;
+  background: none;
+  border-radius: 0.25rem;
+  outline: none;
+  border: none;
+  font-size: 75%;
+  cursor: pointer;
+}
+.info__links--audio {
+  padding: 1.25rem;
+  background: black;
+  color: white;
+  transition: 0.4s all;
+}
+.info__links--audio:hover {
+  background: transparent;
+  color: black;
+}
+.info__links--audio:active {
+  transform: translateY(1rem);
+}
+.info__links--source {
+  display: inline-block;
+  position: relative;
+  transition: 0.1s all;
+}
+.info__links--source::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 1rem;
+  left: 0;
+  background-color: #F7FD04;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+.info__links--source:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+.info__links--source:active {
+  transform: translateY(1rem);
+}
+
+@media screen and (max-width: 62.5rem) {
+  .main {
+    height: 120rem;
+    flex-direction: column-reverse;
+    align-items: baseline;
+  }
+  .main__afleveringen {
+    width: 100%;
+    height: 30%;
+  }
+  .main__aflevering {
+    width: 40%;
+  }
+  .info {
+    width: 100%;
+    height: 70%;
+  }
+  .info__box {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 28.125rem) {
+  .header__title {
+    font-size: 200%;
+  }
+  .main {
+    margin: 0;
+    box-shadow: none;
+    padding: 0;
+    margin-bottom: 2rem;
+  }
+  .info {
+    padding: 1rem;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

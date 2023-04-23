@@ -4,3 +4,7 @@
 @use "./components/header/header";
 @use "./components/footer/footer";
 @use "./components/main/main";
+
+@use "./components/main/info"; 
+
+@use "./abstracts/mediaqeuries"; 
