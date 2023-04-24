@@ -1,6 +1,7 @@
 {
     "episodes": [
-      {
+      { 
+        "img": "./img/",
         "title": "Why We Need Friends with Shared Interest",
         "coverText": "She's the world's leading animal behaviorist and an Autism advocacy leader. Guest Temple Grandin shares what kind of support systems led her to success, and we hear about how community, and lack thereof, affects our health and ability to succeed.",
         "date (dd-mm-yyyy)": "02-03-2023",
