@@ -1,4 +1,4 @@
-class GetDataFromApi{
+class GetDataFromApi {
     data = null;
     async getData(data) {
         await fetch(data).then(response => {
@@ -6,25 +6,25 @@ class GetDataFromApi{
 
         }).then(newData => {
             this.data = newData;
-           
+
         })
-    
+
         return this.data;
-        
-        
+
+
     }
-    
+
 }
 
-class Header{
+class Header {
     header;
     logoFig
     logoImg;
     h1;
     body;
-    constructor(body){
+    constructor(body) {
         this.body = document.getElementsByTagName(body)[0];
-        
+
         this.header = document.createElement("header");
         this.header.classList = "header";
 
@@ -33,13 +33,13 @@ class Header{
         this.logoImg = document.createElement("i");
         this.logoImg.classList = "fa-regular fa-face-grin-squint-tears";
 
-        this.h1 =document.createElement("h1");
+        this.h1 = document.createElement("h1");
         this.h1.classList = "header__title";
-        this.h1.innerText= "Collection of Happiness"
+        this.h1.innerText = "Collection of Happiness"
 
     }
 
-    render(){
+    render() {
         this.body.appendChild(this.header);
         this.header.appendChild(this.logoFig);
         this.header.appendChild(this.h1);
@@ -48,107 +48,134 @@ class Header{
 }
 
 
-class Main{
+class Main {
     body;
     main;
     right;
     left;
+    data;
+    constructor(body,data) {
 
-    constructor(body){
-        this.body = document.getElementsByTagName(body)[0] 
+        this.body = document.getElementsByTagName(body)[0]
         this.main = document.createElement("main")
         this.main.classList = "main";
-
+        this.data = data
 
         this.left = new Left(this.main)
-        this.right = new Right(this.left)
-        
+        this.right = new Right(this.main,this.data)
+
     }
 
-    listitemsMaker(data){
+    listitemsMaker(data) {
         this.left.listitemsMaker(data);
     }
 
-    render(){
-        this.body.appendChild(this.main)
+    render() {
+        this.body.appendChild(this.main);
 
-        this.left.render()
-        
-     
+        this.left.render();
+        this.right.render();
+
     }
 
 
 }
 
-class Left{
-    main
+class NumberGenerator {
+    data;
+    randomNumber;
+
+    constructor(data) {
+        this.data = data;
+        
+        this.randomNumber = Math.floor(Math.random() * this.data.episodes.length)
+        
+    }
+
+}
+
+
+class Left {
+    generator;
+    main;
     list;
     listitem;
     figure;
     img;
     title;
     datum;
-    randomNumbers;
-    constructor(main){
+    ourRandomNumbers;
+    constructor(main) {
         this.main = main
-      
+        
+        
+
         this.list = document.createElement('ul');
         this.list.classList = "main__afleveringen";
-        
+
     }
 
-    listitemsMaker(data){
-        Object.entries(data).forEach((entry) => {
-      
-            for(let i = 0; i < 4; i++){
-                this.randomNumbers  = Math.floor(Math.random() * entry[1].length)
-             
+
+    listitemsMaker(data) {
+        
+        
+        for (let i = 0; i < 4; i++) {
+            
+            Object.entries(data).forEach((entry) => {
+                this.generator = new NumberGenerator(data)
+                this.ourRandomNumbers = this.generator.randomNumber
+
                 this.listitem = document.createElement("li")
                 this.listitem.classList = "main__aflevering"
 
                 this.figure = document.createElement("figure")
                 this.figure.classList = "main__aflevering--figure"
-                
-                this.img = document.createElement("img"); 
+
+                this.img = document.createElement("img");
                 this.img.classList = "main__aflevering--img"
-                this.img.src = entry[1][this.randomNumbers].img
-                
+                this.img.src = entry[1][this.ourRandomNumbers].img
+
                 this.title = document.createElement("h4")
                 this.title.classList = "main__aflevering--title"
-                this.title.innerText = entry[1][this.randomNumbers].title
+                this.title.innerText = entry[1][this.ourRandomNumbers].title
 
                 this.datum = document.createElement("p")
                 this.datum.classList = 'main__aflevering--datum'
-                this.datum.innerText = entry[1][this.randomNumbers].date
+                this.datum.innerText = entry[1][this.ourRandomNumbers].date
 
-   
+                this.link = document.createElement("a")
+                this.link.classList = "main__aflevering--link"
+                this.link.href = entry[1][this.ourRandomNumbers].url
+               
+
                 this.list.appendChild(this.listitem)
                 this.listitem.appendChild(this.figure)
                 this.figure.appendChild(this.img)
                 this.listitem.appendChild(this.datum)
                 this.listitem.appendChild(this.title)
-                
-                this.listitem.onclick = function(){
-                    
-                }
-            }
-            
-        });
-        
-    }
+                this.listitem.appendChild(this.link)
+           
     
-    render(){
-       this.main.appendChild(this.list)
+
+            })
+        }
+        ;
+
+
     }
 
-    
+    render() {
+        this.main.appendChild(this.list)
+    }
+
+
 
 
 }
 
-class Right{
-    left;
-    randomNumber;
+class Right {
+    generator;
+    ourRandomNumber;
     section;
     box;
     figure;
@@ -160,34 +187,91 @@ class Right{
     audio;
     source;
 
-    constructor(left){
-        this.left = left
-        this.randomNumber = this.left.randomNumbers
-        console.log(this.randomNumber)
-       
+    constructor(main,data) {
+        this.main = main
+        this.generator = new NumberGenerator(data)
+        this.ourRandomNumber = this.generator.randomNumber
+        console.log(data.episodes[this.ourRandomNumber])
+        this.section = document.createElement("section");
+        this.section.classList = "info"
+
+        this.box = document.createElement("div");
+        this.box.classList = "info__box";
+        
+        this.figure = document.createElement("figure");
+        this.figure.classList = "info__figure";
+
+        this.img = document.createElement("img");
+        this.img.classList = "info__figure--img";
+        this.img.src = data.episodes[this.ourRandomNumber].img
+
+        this.datum = document.createElement("p");
+        this.datum.classList = "info__figure--datum";
+        this.datum.innerText = data.episodes[this.ourRandomNumber].date
+
+        this.title = document.createElement("h4");
+        this.title.classList = "info__figure--title";
+        this.title.innerText = data.episodes[this.ourRandomNumber].title
+
+        this.text = document.createElement("p");
+        this.text.classList = "info__text";
+        this.text.innerText = data.episodes[this.ourRandomNumber].coverText
+
+        this.links = document.createElement("div");
+        this.links.classList = "info__links";
+
+        this.audioControl = document.createElement("audio")
+        this.audioControl.setAttribute("controls", "controls")
+
+        this.audio = document.createElement("source");
+        this.audio.type = "audio/mpeg"
+        this.audio.src = data.episodes[this.ourRandomNumber].audio
+
+        this.source = document.createElement("a");
+        this.source.classList = "info__links--buttons info__links--source";
+        this.source.innerText = "Source"
+        this.source.href = data.episodes[this.ourRandomNumber].url
+    }
+
+    render(){
+        this.main.appendChild(this.section)
+        this.section.appendChild(this.box)
+        this.box.appendChild(this.figure)
+        this.figure.appendChild(this.img)
+        this.figure.appendChild(this.datum)
+        this.figure.appendChild(this.title)
+        this.box.appendChild(this.text)
+        this.box.appendChild(this.links)
+        this.links.appendChild(this.audioControl)
+        this.audioControl.appendChild(this.audio)
+        this.links.appendChild(this.source)
     }
 
 
 }
 
-class App{
+class App {
     api;
     header;
     main;
-    constructor(){
+    numberGenerator;
+    constructor() {
         this.header = new Header("body");
-        this.main = new Main("body")
+      
 
         this.api = new GetDataFromApi();
-        this.api.getData("./json/data.json").then(data =>{
+        this.api.getData("./json/data.json").then(data => {
+            this.main = new Main("body",data)
             this.main.listitemsMaker(data)
+            this.main.render()
+           
         });
-        
-        
-       
+
+
+
         this.header.render();
-        this.main.render()
-        
+       
+
     }
 
 }

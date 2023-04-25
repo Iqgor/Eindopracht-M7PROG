@@ -103,6 +103,13 @@ body {
   left: 1rem;
   font-size: 150%;
 }
+.main__aflevering--link {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
 .main__aflevering:hover {
   transform: scale(1.05);
   cursor: pointer;
@@ -150,6 +157,7 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 1rem;
+  align-items: center;
 }
 .info__links--buttons {
   font-family: "Ubuntu", sans-serif;
@@ -174,28 +182,12 @@ body {
   transform: translateY(1rem);
 }
 .info__links--source {
-  display: inline-block;
-  position: relative;
-  transition: 0.1s all;
+  text-decoration: none;
+  color: #000000;
+  transition: 0.2s all;
 }
-.info__links--source::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 2px;
-  bottom: 1rem;
-  left: 0;
-  background-color: #F7FD04;
-  transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
-}
-.info__links--source:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-.info__links--source:active {
-  transform: translateY(1rem);
+.info__links--source:hover {
+  transform: translateY(0.5rem);
 }
 
 @media screen and (max-width: 62.5rem) {

@@ -48,7 +48,7 @@
         display: flex;
         justify-content: space-between;
         padding: 1rem;
-        
+        align-items: center;
         &--buttons{
             font-family: fonts.$font;
             background: none;
@@ -74,28 +74,11 @@
         }
 
         &--source{
-            display: inline-block;
-            position: relative;
-            transition: 0.1s all;
-            &::after{
-                content: '';
-                position: absolute;
-                width: 100%;
-                transform: scaleX(0);
-                height: 2px;
-                bottom: 1rem;
-                left: 0;
-                background-color:colors.$backgroundColor2 ;
-                transform-origin: bottom right;
-                transition: transform 0.25s ease-out;
-            }
-            &:hover::after{
-                transform: scaleX(1);
-                transform-origin: bottom left;
-            }   
-
-            &:active{
-                transform: translateY(1rem);
+            text-decoration: none;
+            color: colors.$fontColor;
+            transition: 0.2s all;
+            &:hover{
+                transform: translateY(0.5rem);
             }
         }
     }
