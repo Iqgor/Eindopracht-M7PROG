@@ -55,29 +55,118 @@ class Main{
     left;
 
     constructor(body){
-        this.body = document.getElementsByTagName(body)[0]
-
+        this.body = document.getElementsByTagName(body)[0] 
         this.main = document.createElement("main")
         this.main.classList = "main";
 
 
-        this.left = new Left()
-        this.right = new Right()
+        this.left = new Left(this.main)
+        this.right = new Right(this.left)
+        
+    }
+
+    listitemsMaker(data){
+        this.left.listitemsMaker(data);
     }
 
     render(){
         this.body.appendChild(this.main)
 
-        this.main.appendChild(this.left)
-        this.main.appendChild(this.right)
+        this.left.render()
+        
+     
     }
+
+
 }
 
 class Left{
+    main
+    list;
+    listitem;
+    figure;
+    img;
+    title;
+    datum;
+    randomNumbers;
+    constructor(main){
+        this.main = main
+      
+        this.list = document.createElement('ul');
+        this.list.classList = "main__afleveringen";
+        
+    }
+
+    listitemsMaker(data){
+        Object.entries(data).forEach((entry) => {
+      
+            for(let i = 0; i < 4; i++){
+                this.randomNumbers  = Math.floor(Math.random() * entry[1].length)
+             
+                this.listitem = document.createElement("li")
+                this.listitem.classList = "main__aflevering"
+
+                this.figure = document.createElement("figure")
+                this.figure.classList = "main__aflevering--figure"
+                
+                this.img = document.createElement("img"); 
+                this.img.classList = "main__aflevering--img"
+                this.img.src = entry[1][this.randomNumbers].img
+                
+                this.title = document.createElement("h4")
+                this.title.classList = "main__aflevering--title"
+                this.title.innerText = entry[1][this.randomNumbers].title
+
+                this.datum = document.createElement("p")
+                this.datum.classList = 'main__aflevering--datum'
+                this.datum.innerText = entry[1][this.randomNumbers].date
+
+   
+                this.list.appendChild(this.listitem)
+                this.listitem.appendChild(this.figure)
+                this.figure.appendChild(this.img)
+                this.listitem.appendChild(this.datum)
+                this.listitem.appendChild(this.title)
+                
+                this.listitem.onclick = function(){
+                    
+                }
+            }
+            
+        });
+        
+    }
+    
+    render(){
+       this.main.appendChild(this.list)
+    }
+
+    
+
 
 }
 
 class Right{
+    left;
+    randomNumber;
+    section;
+    box;
+    figure;
+    img;
+    datum;
+    title;
+    text;
+    links;
+    audio;
+    source;
+
+    constructor(left){
+        this.left = left
+        this.randomNumber = this.left.randomNumbers
+        console.log(this.randomNumber)
+       
+    }
+
 
 }
 
@@ -86,14 +175,19 @@ class App{
     header;
     main;
     constructor(){
+        this.header = new Header("body");
+        this.main = new Main("body")
+
         this.api = new GetDataFromApi();
         this.api.getData("./json/data.json").then(data =>{
-            console.log(data)
+            this.main.listitemsMaker(data)
         });
         
-     
-        this.header = new Header("body");
+        
+       
         this.header.render();
+        this.main.render()
+        
     }
 
 }
