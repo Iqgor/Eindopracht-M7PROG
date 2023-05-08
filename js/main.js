@@ -51,7 +51,7 @@ class Header {
 class Main {
     body;
     main;
-    right;
+    
     left;
     data;
     constructor(body,data) {
@@ -61,8 +61,7 @@ class Main {
         this.main.classList = "main";
         this.data = data
 
-        this.left = new Left(this.main)
-        this.right = new Right(this.main,this.data)
+        this.left = new Left(this.main,this.data)
 
     }
 
@@ -74,7 +73,7 @@ class Main {
         this.body.appendChild(this.main);
 
         this.left.render();
-        this.right.render();
+       
 
     }
 
@@ -95,83 +94,7 @@ class NumberGenerator {
 }
 
 
-class Left {
-    generator;
-    main;
-    list;
-    listitem;
-    figure;
-    img;
-    title;
-    datum;
-    ourRandomNumbers;
-    constructor(main) {
-        this.main = main
-        
-        
 
-        this.list = document.createElement('ul');
-        this.list.classList = "main__afleveringen";
-
-    }
-
-
-    listitemsMaker(data) {
-        
-        
-        for (let i = 0; i < 4; i++) {
-            
-            Object.entries(data).forEach((entry) => {
-                this.generator = new NumberGenerator(data)
-                this.ourRandomNumbers = this.generator.randomNumber
-
-                this.listitem = document.createElement("li")
-                this.listitem.classList = "main__aflevering"
-
-                this.figure = document.createElement("figure")
-                this.figure.classList = "main__aflevering--figure"
-
-                this.img = document.createElement("img");
-                this.img.classList = "main__aflevering--img"
-                this.img.src = entry[1][this.ourRandomNumbers].img
-
-                this.title = document.createElement("h4")
-                this.title.classList = "main__aflevering--title"
-                this.title.innerText = entry[1][this.ourRandomNumbers].title
-
-                this.datum = document.createElement("p")
-                this.datum.classList = 'main__aflevering--datum'
-                this.datum.innerText = entry[1][this.ourRandomNumbers].date
-
-                this.link = document.createElement("a")
-                this.link.classList = "main__aflevering--link"
-                this.link.href = entry[1][this.ourRandomNumbers].url
-               
-
-                this.list.appendChild(this.listitem)
-                this.listitem.appendChild(this.figure)
-                this.figure.appendChild(this.img)
-                this.listitem.appendChild(this.datum)
-                this.listitem.appendChild(this.title)
-                this.listitem.appendChild(this.link)
-           
-    
-
-            })
-        }
-        ;
-
-
-    }
-
-    render() {
-        this.main.appendChild(this.list)
-    }
-
-
-
-
-}
 
 class Right {
     generator;
@@ -190,32 +113,33 @@ class Right {
     constructor(main,data) {
         this.main = main
         this.generator = new NumberGenerator(data)
-        this.ourRandomNumber = this.generator.randomNumber
-        console.log(data.episodes[this.ourRandomNumber])
+        let ourRandomNumber = this.generator.randomNumber
         this.section = document.createElement("section");
         this.section.classList = "info"
 
         this.box = document.createElement("div");
         this.box.classList = "info__box";
         
+ 
+
         this.figure = document.createElement("figure");
         this.figure.classList = "info__figure";
 
         this.img = document.createElement("img");
         this.img.classList = "info__figure--img";
-        this.img.src = data.episodes[this.ourRandomNumber].img
+        this.img.src = data.episodes[ourRandomNumber].img
 
         this.datum = document.createElement("p");
         this.datum.classList = "info__figure--datum";
-        this.datum.innerText = data.episodes[this.ourRandomNumber].date
+        this.datum.innerText = data.episodes[ourRandomNumber].date
 
         this.title = document.createElement("h4");
         this.title.classList = "info__figure--title";
-        this.title.innerText = data.episodes[this.ourRandomNumber].title
+        this.title.innerText = data.episodes[ourRandomNumber].title
 
         this.text = document.createElement("p");
         this.text.classList = "info__text";
-        this.text.innerText = data.episodes[this.ourRandomNumber].coverText
+        this.text.innerText = data.episodes[ourRandomNumber].coverText
 
         this.links = document.createElement("div");
         this.links.classList = "info__links";
@@ -225,12 +149,21 @@ class Right {
 
         this.audio = document.createElement("source");
         this.audio.type = "audio/mpeg"
-        this.audio.src = data.episodes[this.ourRandomNumber].audio
+        this.audio.src = data.episodes[ourRandomNumber].audio
 
         this.source = document.createElement("a");
         this.source.classList = "info__links--buttons info__links--source";
         this.source.innerText = "Source"
-        this.source.href = data.episodes[this.ourRandomNumber].url
+        this.source.href = data.episodes[ourRandomNumber].url
+    }
+
+    changeRideSide(data,ourRandomNumber){
+        this.img.src = data.episodes[ourRandomNumber].img
+        this.datum.innerText = data.episodes[ourRandomNumber].date
+        this.title.innerText = data.episodes[ourRandomNumber].title
+        this.text.innerText = data.episodes[ourRandomNumber].coverText
+        this.audio.src = data.episodes[x].audio
+        this.source.href = data.episodes[ourRandomNumber].url
     }
 
     render(){
@@ -246,6 +179,101 @@ class Right {
         this.audioControl.appendChild(this.audio)
         this.links.appendChild(this.source)
     }
+
+
+}   
+
+class Left {
+    generator;
+    data;
+    main;
+    list;
+    listitem;
+    figure;
+    img;
+    title;
+    datum;
+    ourRandomNumbers;
+    right 
+    constructor(main,data) {
+        this.data = data
+        this.main = main
+        this.right = new Right(this.main, this.data)
+        
+
+        this.list = document.createElement('ul');
+        this.list.classList = "main__afleveringen";
+       
+    }
+
+
+    listitemsMaker(data) {
+        
+        
+        for (let i = 0; i < 4; i++) {
+            
+            Object.entries(data).forEach((entry) => {
+                this.generator = new NumberGenerator(data)
+                let ourRandomNumbers = this.generator.randomNumber
+
+                this.listitem = document.createElement("li")
+                this.listitem.classList = "main__aflevering"
+
+                this.figure = document.createElement("figure")
+                this.figure.classList = "main__aflevering--figure"
+
+                this.img = document.createElement("img");
+                this.img.classList = "main__aflevering--img"
+                this.img.src = entry[1][ourRandomNumbers].img
+
+                this.title = document.createElement("h4")
+                this.title.classList = "main__aflevering--title"
+                this.title.innerText = entry[1][ourRandomNumbers].title
+
+                this.datum = document.createElement("p")
+                this.datum.classList = 'main__aflevering--datum'
+                this.datum.innerText = entry[1][ourRandomNumbers].date
+
+                // this.link = document.createElement("a")
+                // this.link.classList = "main__aflevering--link"
+                // this.link.href = entry[1][this.ourRandomNumbers].url
+                
+                this.listitem.onclick = () => {
+                    this.right.changeRideSide(data,ourRandomNumbers)
+                }
+                
+  
+                
+                
+                this.list.appendChild(this.listitem)
+                this.listitem.appendChild(this.figure)
+                this.figure.appendChild(this.img)
+                this.listitem.appendChild(this.datum)
+                this.listitem.appendChild(this.title)
+                // this.listitem.appendChild(this.link)
+           
+                
+
+            })
+
+        }
+        ;
+           
+
+        
+
+    }
+
+    changeRideSide(){
+        console.log(this.right.changeRideSide)
+    }
+
+    render() {
+        this.main.appendChild(this.list)
+        this.right.render()
+    }
+
+
 
 
 }
